@@ -1,1 +1,25 @@
+#!/usr/bin/python
 
+import nmap
+
+def default_nmap_scan(target):
+    # Create an Nmap PortScanner object
+    nm = nmap.PortScanner()
+
+    # Perform a default Nmap scan on the target
+    nm.scan(target)
+
+    # Iterate through the scan results and print open ports and their state
+    for host in nm.all_hosts():
+        print(f"Host: {host}")
+        try:
+            tcp_ports = nm[host]['tcp']
+        except KeyError:
+            continue  # Skip hosts with no open ports
+        for port, port_info in tcp_ports.items():
+            state = port_info['state']
+            print(f"Port: {port} - State: {state}")
+
+if __name__ == "__main__":
+    target = input("Enter the target host or IP address: ")
+    default_nmap_scan(target)
