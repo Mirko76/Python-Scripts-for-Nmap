@@ -1,0 +1,6 @@
+-- Ping Scan - disable port scan --
+nmap -sn 192.168.199.1/24
+nmap -sn 192.168.199.1-150
+
+-- Don't Ping Scan --
+nmap -Pn 192.168.199.1
