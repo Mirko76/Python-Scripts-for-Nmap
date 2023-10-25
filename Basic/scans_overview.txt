@@ -1,1 +1,8 @@
+# Default Scan
+$ nmap 192.168.199.1
+
+# TCP Connect Scan
+$ nmap -sT 192.168.199.1
+
+
 
