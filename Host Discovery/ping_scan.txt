@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+
+# -sn: Ping Scan - disable port scan
+
+# How to use:
+# nmap -sn 192.168.199.1/24
+# nmap -sn 192.168.199.1-150
+
+#!/usr/bin/env python
+
+import nmap
+
+def ping_scan(target):
+    # Create an Nmap PortScanner object
+    nm = nmap.PortScanner()
+
+    # Perform a ping scan
+    nm.scan(hosts=target, arguments='-sn')
+
+    # Iterate through the scan results and print the online hosts
+    for host in nm.all_hosts():
+        state = nm[host]['status']['state']
+        print(f"Host: {host} is {state}")
+
+if __name__ == "__main__":
+    target = input("Enter the target host or IP address: ")
+    ping_scan(target)
