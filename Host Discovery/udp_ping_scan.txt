@@ -15,11 +15,6 @@ Port 67 is closed or filtered on 192.168.199.2
 Port 67 is closed or filtered on 192.168.199.3
 Port 67 is closed or filtered on 192.168.199.4
 Port 67 is closed or filtered on 192.168.199.5
-Port 67 is closed or filtered on 192.168.199.6
-Port 67 is closed or filtered on 192.168.199.7
-Port 67 is closed or filtered on 192.168.199.8
-Port 67 is closed or filtered on 192.168.199.9
-Port 67 is closed or filtered on 192.168.199.10
 ...
 ...
 ...
