@@ -1,6 +1,17 @@
 # Ping Scan - disable port scan
-$ nmap -sn 192.168.199.1/24
-$ nmap -sn 192.168.199.1-150
+nmap -sn 192.168.199.1/24
+nmap -sn 192.168.199.1-150
 
 # Don't Ping Scan
-$ nmap -Pn 192.168.199.1
+nmap -Pn 192.168.199.1
+
+# TCP SYN Ping Scan
+nmap -PS 192.168.199.1/24
+nmap -PS -p21,23,80 192.168.199.1/24
+
+# TCP ACK Ping Scan
+nmap -sn -PA nmap.scanme.org
+nmap -Pn -sn -PA nmap.scanme.org
+nmap -Pn -sn -PA -n nmap.scanme.org
+
+# ARP Ping Scan
