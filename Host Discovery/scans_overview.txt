@@ -25,3 +25,5 @@ sudo nmap -PE 192.168.199.1
 # ICMP Timestamp Ping Scan
 nmap -PP nmap.scanme.org
 nmap -PP 192.168.199.1
+
+# IP Protocol Ping Scan
