@@ -1,1 +1,68 @@
+#!/usr/bin/env python
+
+import socket
+import ipaddress
+
+"""
+
+The result lists every single IP address if you scan a range
+
+(Py3.8) whoami@ubuntu:~/PycharmProjects/NmapScans$ sudo python3 ./udp_ping_scan.py 
+Enter the target host or IP address range (e.g., 192.168.199.0/24): 192.168.199.0/24
+Enter the UDP ports to scan (e.g., 53,67,161): 67
+Port 67 is closed or filtered on 192.168.199.1
+Port 67 is closed or filtered on 192.168.199.2
+Port 67 is closed or filtered on 192.168.199.3
+Port 67 is closed or filtered on 192.168.199.4
+Port 67 is closed or filtered on 192.168.199.5
+Port 67 is closed or filtered on 192.168.199.6
+Port 67 is closed or filtered on 192.168.199.7
+Port 67 is closed or filtered on 192.168.199.8
+Port 67 is closed or filtered on 192.168.199.9
+Port 67 is closed or filtered on 192.168.199.10
+...
+...
+...
+
+"""
+
+
+def udp_ping_scan(target, ports):
+    # Split the ports input into a list of integers
+    ports = [int(port) for port in ports.split(',')]
+
+    try:
+        target_ip = ipaddress.ip_network(target, strict=False)
+    except ValueError as e:
+        print(f"Invalid IP address or range: {e}")
+        return
+
+    for ip in target_ip.hosts():
+        for port in ports:
+            try:
+                # Create a UDP socket
+                udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                udp_socket.settimeout(1)
+
+                # Send a UDP packet to the target host and port
+                udp_socket.sendto(b'', (str(ip), port))
+
+                # Attempt to receive a response
+                data, addr = udp_socket.recvfrom(1024)
+
+                # If a response is received, the port is open
+                print(f"Port {port} is open on {ip}")
+            except socket.timeout:
+                # If no response is received, the port is closed or filtered
+                print(f"Port {port} is closed or filtered on {ip}")
+            except Exception as e:
+                print(f"Error checking port {port} on {ip}: {e}")
+            finally:
+                udp_socket.close()
+
+
+if __name__ == "__main__":
+    target = input("Enter the target host or IP address range (e.g., 192.168.199.0/24): ")
+    ports = input("Enter the UDP ports to scan (e.g., 53,67,161): ")
+    udp_ping_scan(target, ports)
 
