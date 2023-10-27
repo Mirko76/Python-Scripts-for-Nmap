@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+"""
+-PP
+nmap -PP nmap.scanme.org
+
+An ICMP Timestamp Ping scan is used to determine the uptime of hosts by sending ICMP Timestamp Request messages and analyzing the responses from the target hosts.
+"""
+
+import nmap
+def icmp_timestamp_ping_scan(target):
+    # Create an Nmap PortScanner object
+    nm = nmap.PortScanner()
+
+    # Perform an ICMP Timestamp Ping scan
+    arguments = '-PP'
+    nm.scan(target, arguments=arguments)
+
+    # Iterate through the scan results and print the online hosts
+    for host in nm.all_hosts():
+        print(f"Host: {host} is {nm[host]['status']['state']}")
+
+if __name__ == "__main__":
+    target = input("Enter the target host or IP address: ")
+    icmp_timestamp_ping_scan(target)
