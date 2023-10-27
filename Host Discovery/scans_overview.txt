@@ -15,3 +15,13 @@ nmap -Pn -sn -PA nmap.scanme.org
 nmap -Pn -sn -PA -n nmap.scanme.org
 
 # ARP Ping Scan
+nmap -PR 192.168.199.1/24
+nmap -sP -PR 192.168.1/24
+
+# ICMP ECHO Ping Scan
+sudo nmap -PE nmap.scanme.org
+sudo nmap -PE 192.168.199.1
+
+# ICMP Timestamp Ping Scan
+nmap -PP nmap.scanme.org
+nmap -PP 192.168.199.1
