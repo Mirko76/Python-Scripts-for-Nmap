@@ -1,1 +1,31 @@
+#!/usr/bin/env python
+
+"""
+This type of scan is typically used on local networks, and it is a way to identify hosts that are up and running on the same network segment
+-PR
+nmap -PR 192.168.199.0/24
+"""
+
+import nmap
+import sys
+
+def arp_ping_scan(ip_range):
+    # Create an Nmap PortScanner object
+    nm = nmap.PortScanner()
+
+    # Perform an ARP Ping scan with the specified IP range
+    arguments = f'-PR {ip_range}'
+    nm.scan(arguments=arguments)
+
+    # Iterate through the scan results and print the online hosts
+    for host in nm.all_hosts():
+        print(f"Host: {host} is {nm[host]['status']['state']}")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 arp_ping_scan.py <IP_RANGE>")
+        sys.exit(1)
+
+    ip_range = sys.argv[1]
+    arp_ping_scan(ip_range)
 
